@@ -1,0 +1,148 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta content="width=device-width, initial-scale=1" name="viewport">
+    <title>Amazon Listing Studio</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+<main class="page">
+    <header class="mb-4"><h1>Amazon Listing Studio</h1>
+        <p class="subtitle mb-0">Find your product’s strongest selling angle.</p></header>
+    <div class="row g-3 align-items-stretch">
+        <section aria-labelledby="product-heading" class="col-12 col-xl-3 input-col">
+            <div class="panel">
+                <h2 id="product-heading">Your product</h2>
+                <form id="product-form">
+                    <div class="field"><label class="form-label" for="search-term">Search term</label>
+                        <div class="input-group"><input class="form-control" id="search-term" name="search_term"
+                                                        required value="laptop backpack">
+                            <button class="btn btn-outline-primary py-1 px-2" data-bs-target="#competitor-modal" data-bs-toggle="modal"
+                                    type="button">Find
+                            </button>
+                        </div>
+                    </div>
+                    <div class="field"><label class="form-label" for="marketplace">Marketplace</label><select
+                            class="form-select" id="marketplace" name="marketplace">
+                        <option value="amazon.com">Amazon US</option>
+                        <option value="amazon.co.uk">Amazon UK</option>
+                        <option value="amazon.ca">Amazon Canada</option>
+                    </select></div>
+                    <div class="field"><label class="form-label" for="product-name">Product name</label><input
+                            class="form-control" id="product-name" name="product_name"
+                            required value="UrbanCarry Laptop Backpack"></div>
+                    <div class="field"><label class="form-label" for="price">Price (USD)</label><input class="form-control"
+                                                                                                       id="price"
+                                                                                                       min="0"
+                                                                                                       name="price"
+                                                                                                       required
+                                                                                                       step="0.01"
+                                                                                                       type="number"
+                                                                                                       value="39"></div>
+                    <div class="field"><label class="form-label" for="details">Product details</label><textarea
+                            class="form-control details" id="details" name="product_details" required>Fits 15.6-inch laptops
+20L capacity
+Polyester fabric
+Water-resistant exterior
+Padded shoulder straps
+Separate laptop compartment
+Two side pockets
+Black</textarea></div>
+                    <h3 class="mt-3 mb-2">Compare with</h3>
+                    <div id="selected-products"></div>
+                    <button class="btn btn-link text-link p-0 mb-3" data-bs-target="#competitor-modal" data-bs-toggle="modal"
+                            type="button">Change products
+                    </button>
+                    <button class="btn btn-primary w-100" type="submit">Compare &amp; write</button>
+                    <p class="footnote mt-2 mb-0">Demo UI · sample comparison and draft. Live search and AI generation
+                        will be connected in Flask.</p>
+                </form>
+            </div>
+        </section>
+        <section aria-labelledby="comparison-heading" class="col-12 col-xl-4 comparison-col">
+            <div class="panel">
+                <div class="d-flex gap-2 flex-wrap justify-content-between align-items-start"><h2
+                        id="comparison-heading">How your product compares</h2><span class="badge rounded-pill example">Illustrative example</span>
+                </div>
+                <p class="mb-3 text-secondary">Compared with <span id="comparison-count">3</span> selected laptop
+                    backpacks.</p>
+                <div id="insights">
+                    <div class="insight border-top">
+                        <div class="d-flex gap-3 align-items-center flex-wrap"><h3 class="mb-0">Where you stand out</h3>
+                            <span class="badge rounded-pill strong">Stronger</span></div>
+                        <p>Your two side pockets offer more storage options than Campus Backpack, which has one.</p><a
+                            class="text-link"
+                            href="https://www.amazon.com/Backpack-Business-Slim-Lightweight-Laptop/dp/B0B67WPS9B"
+                            rel="noopener noreferrer" target="_blank">Check listing ↗</a></div>
+                    <div class="insight">
+                        <div class="d-flex gap-3 align-items-center flex-wrap"><h3 class="mb-0">Where others offer
+                            more</h3><span class="badge rounded-pill weak">Weaker</span></div>
+                        <p>Office Backpack has 22L capacity. Yours has 20L, so storage volume is not your strongest
+                            angle.</p><a class="text-link"
+                                         href="https://www.amazon.com/Amazon-Basics-Travel-Laptop-Backpack/dp/B0CZ2KMQ62"
+                                         rel="noopener noreferrer" target="_blank">Check listing ↗</a></div>
+                    <div class="insight">
+                        <div class="d-flex gap-3 align-items-center flex-wrap"><h3 class="mb-0">What is similar</h3>
+                            <span class="badge rounded-pill similar">Similar</span></div>
+                        <p>Your 15.6-inch laptop fit matches Office Backpack and Commuter Backpack.</p></div>
+                    <div class="insight">
+                        <div class="d-flex gap-3 align-items-center flex-wrap"><h3 class="mb-0">What we cannot tell</h3>
+                            <span class="badge rounded-pill unknown">Unknown</span></div>
+                        <p>Comfort and durability need more evidence than the supplied specifications.</p></div>
+                    <div class="pt-3"><h3>Your best selling angle</h3>
+                        <p class="mb-2" style="color:#394765">Lead with separate laptop storage and two easy-access side
+                            pockets for everyday organisation.</p>
+                        <p class="footnote mb-0">Sample product names, prices, ratings and feature comparisons are
+                            illustrative, not verified Amazon data.</p></div>
+                </div>
+                <div class="alert alert-light border mt-4 d-none" id="comparison-empty">Your inputs have changed.
+                    Connect the Flask comparison endpoint to generate fresh, evidence-based insights for these products.
+                </div>
+            </div>
+        </section>
+        <section aria-labelledby="draft-heading" class="col-12 col-xl-5 draft-col">
+            <div class="panel draft-panel">
+                <h2 id="draft-heading">Your listing draft</h2>
+                <label class="draft-label" for="draft-title">Product title</label><textarea class="form-control draft-title"
+                                                                                            id="draft-title">UrbanCarry 20L Laptop Backpack for 15.6-Inch Laptops, Separate Laptop Storage &amp; Two Side Pockets, Black</textarea>
+                <label class="draft-label" for="draft-description">Product description</label><textarea
+                    class="form-control draft-description" id="draft-description">Keep your laptop and daily essentials organised with the UrbanCarry Laptop Backpack. A separate compartment fits laptops up to 15.6 inches, while two side pockets keep small items within reach.
+
+The 20L backpack features a water-resistant polyester exterior and padded shoulder straps. Available in black for everyday use.</textarea>
+                <div class="draft-actions">
+                    <button class="btn btn-outline-primary" id="regenerate" type="button">Regenerate</button>
+                    <button class="btn btn-primary" id="copy" type="button">Copy draft</button>
+                </div>
+                <div aria-live="polite" class="footnote mt-2 text-end" id="status" role="status"></div>
+            </div>
+        </section>
+    </div>
+</main>
+<div aria-hidden="true" aria-labelledby="modal-heading" class="modal fade" id="competitor-modal" tabindex="-1">
+    <div class="modal-dialog modal-lg modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <div><h2 class="modal-title fs-4" id="modal-heading">Choose comparable products</h2>
+                    <p class="footnote mb-0">Choose products with a similar purpose, size and price. Sample results
+                        below.</p></div>
+                <button aria-label="Close" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body">
+                <div class="alert alert-light border small">These are the three Amazon source links we selected earlier.
+                    Their displayed details are placeholders until SearchAPI is connected.
+                </div>
+                <div id="modal-products"></div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-primary" data-bs-dismiss="modal">Done</button>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<script src="{{ url_for('static', filename='js/app.js') }}"></script>
+</body>
+</html>
