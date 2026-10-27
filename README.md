@@ -1,7 +1,7 @@
 # Amazon Product Listing Assistant
 
 ## Introduction
-A Flask app that summarises competing Amazon listings and generates search-aware product titles and descriptions using SearchAPI and OpenRouter.
+A Flask app that summarises competing Amazon listings and generates search-aware product titles and descriptions using [SearchApi](https://www.searchapi.io/?utm_source=dev&utm_medium=ambassador&utm_campaign=blog.adnansiddiqi.me) and OpenRouter.
 
 ## Tutorial
 
@@ -42,7 +42,7 @@ pip install -r requirements.txt
 
 ### 4. Configure API keys
 
-Get API keys from [SearchAPI](https://www.searchapi.io/) and [OpenRouter](https://openrouter.ai/).
+Get API keys from [SearchApi]([https://www.searchapi.io/](https://www.searchapi.io/?utm_source=dev&utm_medium=ambassador&utm_campaign=blog.adnansiddiqi.me)) and [OpenRouter](https://openrouter.ai/).
 
 Create a `.env` file in the project root:
 
