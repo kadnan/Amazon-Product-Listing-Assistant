@@ -151,21 +151,21 @@ def fetch_competitor(asin, marketplace, api_key):
             504,
         )
     except requests.exceptions.RequestException:
-        raise UpstreamError("Unable to connect to SearchAPI.")
+        raise UpstreamError("Unable to connect to SearchApi.")
 
     if response.status_code == 429:
-        raise UpstreamError("SearchAPI request limit reached.", 429)
+        raise UpstreamError("SearchApi request limit reached.", 429)
 
     if not response.ok:
-        raise UpstreamError(f"SearchAPI lookup failed for {asin}.")
+        raise UpstreamError(f"SearchApi lookup failed for {asin}.")
 
     try:
         payload = response.json()
     except ValueError:
-        raise UpstreamError("SearchAPI returned invalid JSON.")
+        raise UpstreamError("SearchApi returned invalid JSON.")
 
     if not isinstance(payload, dict) or payload.get("error"):
-        raise UpstreamError(f"SearchAPI could not retrieve {asin}.")
+        raise UpstreamError(f"SearchApi could not retrieve {asin}.")
 
     product = payload.get("product")
 
@@ -178,7 +178,7 @@ def fetch_competitor(asin, marketplace, api_key):
         raise UpstreamError(f"No product title returned for {asin}.")
 
     if product.get("asin") != asin:
-        raise UpstreamError(f"SearchAPI returned a different ASIN for {asin}.")
+        raise UpstreamError(f"SearchApi returned a different ASIN for {asin}.")
 
     buybox = product.get("buybox")
     buybox = buybox if isinstance(buybox, dict) else {}

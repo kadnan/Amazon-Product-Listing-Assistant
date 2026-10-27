@@ -434,7 +434,7 @@ def search_products():
     api_key = os.environ.get("SEARCHAPI_API_KEY")
 
     if not api_key:
-        return jsonify({"error": "SearchAPI API key is not configured."}), 500
+        return jsonify({"error": "SearchApi API key is not configured."}), 500
 
     currency = currencies[marketplace]
     response = None
@@ -465,33 +465,33 @@ def search_products():
     except requests.exceptions.HTTPError:
         if response.status_code == 429:
             return jsonify({
-                "error": "SearchAPI request limit reached. Please try again later."
+                "error": "SearchApi request limit reached. Please try again later."
             }), 429
 
         return jsonify({
-            "error": "SearchAPI could not complete the search."
+            "error": "SearchApi could not complete the search."
         }), 502
 
     except requests.exceptions.RequestException:
         return jsonify({
-            "error": "Unable to connect to SearchAPI."
+            "error": "Unable to connect to SearchApi."
         }), 502
 
     except ValueError:
         return jsonify({
-            "error": "SearchAPI returned an invalid JSON response."
+            "error": "SearchApi returned an invalid JSON response."
         }), 502
 
     if not isinstance(results, dict) or results.get("error"):
         return jsonify({
-            "error": "SearchAPI could not complete the search."
+            "error": "SearchApi could not complete the search."
         }), 502
 
     organic_results = results.get("organic_results", [])
 
     if not isinstance(organic_results, list):
         return jsonify({
-            "error": "SearchAPI returned an unexpected response."
+            "error": "SearchApi returned an unexpected response."
         }), 502
 
     products = []
